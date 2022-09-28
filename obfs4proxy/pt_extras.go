@@ -71,6 +71,14 @@ func ptIsClient() (bool, error) {
 	return false, errors.New("not launched as a managed transport")
 }
 
+func ptGetSocks5() (string) {
+	socks5Env := os.Getenv("TOR_PT_CLIENT_SOCKS5")
+	if socks5Env != "" {
+		return socks5Env
+	}
+	return "127.0.0.1:0"
+}
+
 func ptGetProxy() (*url.URL, error) {
 	specString := os.Getenv("TOR_PT_PROXY")
 	if specString == "" {

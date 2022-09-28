@@ -52,13 +52,15 @@ import (
 const (
 	obfs4proxyVersion = "0.0.14"
 	obfs4proxyLogFile = "obfs4proxy.log"
-	socksAddr         = "127.0.0.1:0"
 )
 
 var stateDir string
 var termMon *termMonitor
+var socksAddr string
 
 func clientSetup() (launched bool, listeners []net.Listener) {
+	socksAddr = ptGetSocks5()
+	
 	ptClientInfo, err := pt.ClientSetup(transports.Transports())
 	if err != nil {
 		golog.Fatal(err)
